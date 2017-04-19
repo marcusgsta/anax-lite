@@ -20,6 +20,20 @@ $app->url     = new \Anax\Url\Url();
 $app->router  = new \Anax\Route\RouterInjectable();
 $app->view    = new \Anax\View\ViewContainer();
 
+$app->navbar = new \Mag\Navbar\Navbar();
+$app->navbar->setApp($app);
+$app->navbar->configure("navbar.php");
+
+// Start a session if not started and set $key 'number' to 1 if not set
+
+if (!isset($app->session)) {
+    $app->session = new \Mag\Session\Session();
+    $app->session->start();
+    if (!$app->session->has("number")) {
+        $app->session->set("number", 1);
+    }
+}
+
 // Inject $app into the view container for use in view files.
 $app->view->setApp($app);
 
@@ -39,6 +53,8 @@ $app->url->setScriptName($app->request->getScriptName());
 // Update url configuration with values from config file.
 $app->url->configure("url.php");
 $app->url->setDefaultsFromConfiguration();
+
+$app->style = $app->url->asset("css/style.css");
 
 // Load the Routes
 require ANAX_INSTALL_PATH . "/config/route.php";

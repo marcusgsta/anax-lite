@@ -94,7 +94,7 @@ navbar.navbar1 {
     top: 0;
     color: #fff;
     list-style-type: none;
-    width: 300px;
+    /*width: 300px;*/
     /*height: 100px;*/
     margin: 0 0 0 0;
 }
@@ -201,6 +201,10 @@ p {
 
 li {
     padding: 0 0 8px 0;
+}
+
+em {
+	font-family: cursive;
 }
 
 .footer {
