@@ -19,3 +19,8 @@ v2.0.0 (2017-04-19)
 -------------------------
 
 Added classes for Navbar and Session and routes for session
+
+v2.0.1 (2017-04-23)
+-------------------------
+
+Added a calendar, with classes, navigation, and view
