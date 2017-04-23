@@ -40,6 +40,7 @@ med en annan färg på typsnittet.</p>
 
 <p>Känns bra att börja på nästa kursmoment, jag antar det blir lite lättare nu när jag har skapat grunden för anax-lite-sidan,
     och kommit in i både PHP på nytt, och att jobba med klasser i PHP.</p>
+
 <h2 id="kmom02">Kmom02 – OO-programmering i PHP</h2>
 <p><em>Integrera klassen Session i Anax-Lite</em></p>
 <p>Jag dök in i ramverket igen, det blir lite hoppigt in i olika programspråk och ramverk, men säkert en bra övning.
@@ -51,7 +52,17 @@ dump- och en destroy-route.  </p>
 <p>Här följde jag Kenneths genomgång och det gick fint. Jag behövde inga view-filer, eftersom jag inne i klassen
 Navbar skapar html-koden. Jag använder också en config-fil, config/navbar.php, för att sätta routesen.
 Jag använder 2 olika navbar, har inte bestämt mig för om jag ska ta bort den ena. Navbaren som använder en config-fil är den
-som ligger till höger med tre stora boxiga länkar i starka färger.</p>
+som ligger till höger med fyra box-länkar i starka färger.</p>
+
+<p><em>Månadskalender</em></p>
+<p>Jag gjorde min kalender med klasser och uppfyller de grundläggande kraven.
+Jag gjorde också den första extrauppgiften, och lade till en ny bild för varje månad. Man kan navigera
+mellan månaderna, samtliga datum i månaden visas, de resterande dagarna från tidigare månad är skuggade. Längst
+upp visas veckodagarna och med hjälp av CSS gjorde jag söndagarna röda.</p>
+<p>Det var en rolig uppgift, och lagom utmanande. Jag visste inte alls hur jag skulle göra, men skrev ner mina funderingar
+a la rubber duck - metoden, och då kändes det lite klarare vad jag behövde. Med hjälp av php:s datumfunktioner hämtade jag antal dagar i varje
+månad och lagrade dem arrayer i en array för hela året. Vet inte om det var bästa sättet men det gick att arbeta med, och det hela lossnade
+efterhand. Jag fixade också så att dagens datum visas i grönt. </p>
 
 <h2 id="kmom03">Kmom03</h2>
 <h2 id="kmom04">Kmom04</h2>

@@ -25,7 +25,6 @@ $app->navbar->setApp($app);
 $app->navbar->configure("navbar.php");
 
 // Start a session if not started and set $key 'number' to 1 if not set
-
 if (!isset($app->session)) {
     $app->session = new \Mag\Session\Session();
     $app->session->start();
@@ -33,6 +32,9 @@ if (!isset($app->session)) {
         $app->session->set("number", 1);
     }
 }
+
+// Create calendar
+$app->calendar = new \Mag\Calendar\Calendar();
 
 // Inject $app into the view container for use in view files.
 $app->view->setApp($app);

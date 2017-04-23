@@ -3,6 +3,7 @@
 return [
     "Home" => "",
     "About" => "about",
-    "Report" => "report"
+    "Report" => "report",
+    "Calendar" => "calendar"
 
 ];
