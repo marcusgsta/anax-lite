@@ -6,6 +6,8 @@ if ($app->session->has("number")) {
 
 ?>
 <div class="container">
+    <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
+
     <h1>Test the session – choose route</h1>
     <h2>Current value: <?=(isset($value)) ? $value : "None";?></h2>
 <ul>

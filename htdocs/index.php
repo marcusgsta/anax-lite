@@ -24,6 +24,31 @@ $app->navbar = new \Mag\Navbar\Navbar();
 $app->navbar->setApp($app);
 $app->navbar->configure("navbar.php");
 
+// Connect to database
+// $dataBaseFileName = __DIR__ . "/../sql/oophp.sqlite";
+// var_dump($dataBaseFileName);
+// $app->database = new \Mag\Database\Database("sqlite:$dataBaseFileName");
+
+$app->db = new \Anax\Database\DatabaseConfigure();
+// $app->db = new \Mag\Database\Database();
+$app->db->configure("database.php");
+$app->db->setDefaultsFromConfiguration();
+$app->db->connect();
+$app->access = new \Mag\Access\Access($app->db);
+
+// Create an admin class, to use its methods
+// Inject $app into class to be able to use database, access and session classes
+// $app->admin = new \Mag\Admin\Admin($app->db);
+$app->admin = new \Mag\Admin\Admin($app);
+
+
+// Save a cookie
+
+$my_cookie = "my_cookie";
+$app->cookie = new \Mag\Cookie\Cookie();
+$app->cookie->set($my_cookie, "en chokladruta");
+
+
 // Start a session if not started and set $key 'number' to 1 if not set
 if (!isset($app->session)) {
     $app->session = new \Mag\Session\Session();
@@ -33,8 +58,10 @@ if (!isset($app->session)) {
     }
 }
 
+
 // Create calendar
 $app->calendar = new \Mag\Calendar\Calendar();
+
 
 // Inject $app into the view container for use in view files.
 $app->view->setApp($app);

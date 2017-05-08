@@ -2,6 +2,7 @@
 $app->router->add(
     "session",
     function () use ($app) {
+
         $app->view->add("take1/header", ["title" => "Test av session"]);
         $app->view->add("navbar1/navbar1");
         $app->view->add("take1/navbar");

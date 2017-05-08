@@ -79,6 +79,11 @@ body {
     color: #0a0b21;
 }
 
+img.gravatar {
+	border:3px solid white;
+	outline: 1px solid silver;
+}
+
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
 .container::-webkit-scrollbar {
@@ -302,4 +307,70 @@ img.calendar {
 .next a:hover,
 .prev a:hover {
 	background-color: indianred;
+}
+
+/* Forms */
+
+/* Login */
+
+form {
+	margin-bottom: 20px;
+}
+
+form input[type="submit"] {
+	font-size: 1.5em;
+}
+
+.active_user {
+	color: #61a526;
+}
+
+/* Admin */
+/* Table */
+
+table.admin {
+	border: 1px solid gray;
+	margin: 0 0 10px 0;
+}
+
+table.admin th,
+table.admin tr,
+table.admin td {
+
+	padding: 5px;
+}
+
+table.admin th {
+	background-color: white;
+	font-weight: 600;
+}
+
+
+
+/* Form */
+fieldset {
+	border: 1px solid gray;
+	padding: 20px;
+}
+
+form.add_user input {
+	padding: 5px;
+	display:block;
+	margin: 0 0 5px 0;
+}
+
+.edit_user input,
+.edit_user select {
+	padding: 5px;
+	display:block;
+	margin: 0 0 5px 0;
+}
+
+input.delete.right {
+	margin: 10px 0 0 0;
+}
+
+td.gravatar_column {
+	max-width: 200px;
+	word-wrap: break-word;
 }

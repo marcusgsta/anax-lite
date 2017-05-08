@@ -1,4 +1,5 @@
 <div class="container">
+    <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
 
 <h1>Hem</h1>
 <img class="right" src="image/marcus.jpg?w=200" alt="">

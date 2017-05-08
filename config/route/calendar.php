@@ -3,6 +3,7 @@ $app->router->add(
     "calendar",
     function () use ($app) {
 
+
         $app->calendar->getMonth();
 
         if (isset($_GET['month'])) {

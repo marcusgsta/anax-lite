@@ -21,5 +21,15 @@ $navbar = [
             "text" => "Session",
             "route" => "session",
         ],
+
+        "profile" => [
+            "text" => "Profil",
+            "route" => "profile",
+        ],
+
+        "admin" => [
+            "text" => "Admin",
+            "route" => "admin",
+        ],
     ]
 ];

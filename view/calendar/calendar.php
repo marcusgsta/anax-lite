@@ -1,4 +1,6 @@
 <div class="container">
+    <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
+
 <?php
 
 $month = isset($_GET['month']) ? $_GET['month'] : date('n');
