@@ -24,3 +24,8 @@ v2.0.1 (2017-04-23)
 -------------------------
 
 Added a calendar, with classes, navigation, and view
+
+v3.0.0 (2017-05-08)
+-------------------------
+
+Added login funcionality, admin pages and admin privileges
