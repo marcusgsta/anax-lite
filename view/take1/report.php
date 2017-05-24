@@ -107,8 +107,20 @@ det fungerar och har betydligt bättre strukturerad kod än vad jag kunde åstad
 <p>Jag committade till sist och lade upp koden på Github.</p>
 
 <p><em>MySQL</em></p>
-<p>Jag gjorde uppgifterna 12 - XX .</p>
+<p>Jag gjorde de sista uppgifterna 12 - 15. Det gick bra, egentligen bara att läsa och jobba igenom.
+Bra att fräscha upp kunskaperna i MySQL. Det kändes inte som om det var så höga krav, eftersom man fick det hela serverat. Men en bra
+och nyttig genomgång var det.</p>
 
+<p>Avslutningsvis för att svara på redovisningsfrågorna:
+Jag tycker det är en viss omställning varje gång man byter mellan programmeringsspråk. När man jobbat med det
+några dagar känns det inte så obekant längre. Ju mer jag jobbar med ramverket, ju lättare
+går det såklart. Jag har jobbat med formulär och PHP ganska många gånger nu, och tycker att jag numera behärskar
+det. Det skulle gå att placera fler funktioner och uträkningar i klasser, men det får bli
+nästa gång – exempelvis så kunde det möjligen vara en bra idé att hantera $_GET och $_POST med klassmetoder.
+ </p>
+<p>Svårighetsgraden har inte ökat sedan kursmoment ett, tycker jag. Det har varit kodövningar att ta sig igenom, steg för steg.
+När man väl har tagit sig igenom känns det ju strålande, och jag lär mig mycket genom att programmera. När man ger sig in i samma
+område igen så kan man förhoppningsvis förbättra sin kodstruktur successivt.</p>
 <h2 id="kmom04">Kmom04</h2>
 <h2 id="kmom05">Kmom05</h2>
 <h2 id="kmom06">Kmom06</h2>
