@@ -3,7 +3,6 @@ $app->router->add(
     "calendar",
     function () use ($app) {
 
-
         $app->calendar->getMonth();
 
         if (isset($_GET['month'])) {
@@ -16,16 +15,8 @@ $app->router->add(
 
         $currentMonth = $currentMonth - 1;
         $app->calendar->month = $app->calendar->nrOfDays[$currentMonth];
-        $app->view->add("take1/header", ["title" => "Calendar 2017"]);
-        $app->view->add("navbar1/navbar1");
-        $app->view->add("take1/navbar");
 
+        $app->renderPage("Calendar 2017", "calendar/calendar");
 
-
-        $app->view->add("calendar/calendar");
-        $app->view->add("take1/footer");
-
-        $app->response->setBody([$app->view, "render"])
-                      ->send();
     }
 );

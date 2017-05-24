@@ -29,3 +29,13 @@ v3.0.0 (2017-05-08)
 -------------------------
 
 Added login funcionality, admin pages and admin privileges
+
+v4.0.0 (2017-05-24)
+-------------------------
+
+Förbättrade route för tillgång till admin-sidor, med en route admin/** vilket gör att alla routes under admin/ kontrolleras.
+
+v4.0.1 (2017-05-24)
+-------------------------
+
+Skapade metoden renderPage() i app-klassen. För att korta ner koden i routerna. Jag sänder $title och $page (och $data om det behövs) till app->renderPage, och sparar kodrader.
