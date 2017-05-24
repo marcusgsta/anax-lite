@@ -11,7 +11,6 @@ $app->router->add(
 $app->router->add(
     "about",
     function () use ($app) {
-
         $app->renderPage("About", "take1/about");
 
     }

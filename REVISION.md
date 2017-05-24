@@ -39,3 +39,8 @@ v4.0.1 (2017-05-24)
 -------------------------
 
 Skapade metoden renderPage() i app-klassen. För att korta ner koden i routerna. Jag sänder $title och $page (och $data om det behövs) till app->renderPage, och sparar kodrader.
+
+v4.0.2 (2017-05-24)
+-------------------------
+
+I composer.json lade jag till autoload: files: ['src: functions.php'] vilket gör det lätt att använda hjälpfunktioner, vilka jag kan samla i den filen.
