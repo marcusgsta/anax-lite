@@ -122,6 +122,9 @@ nästa gång – exempelvis så kunde det möjligen vara en bra idé att hantera
 När man väl har tagit sig igenom känns det ju strålande, och jag lär mig mycket genom att programmera. När man ger sig in i samma
 område igen så kan man förhoppningsvis förbättra sin kodstruktur successivt.</p>
 <h2 id="kmom04">Kmom04</h2>
+<p><em>Skapa en klass för textfiltrering och formatering.</em></p>
+<p>Jag valde att använda anax/textfilter, och skapade också en route textfilter där jag testar de fyra filtrena:
+nl2br, clickable, bbcode och markdown. Jag injicerade klassen Textfilter i $app, i frontcontrollern.</p>
 <h2 id="kmom05">Kmom05</h2>
 <h2 id="kmom06">Kmom06</h2>
 <h2 id="kmom10">Kmom07-10</h2>

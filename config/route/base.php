@@ -40,3 +40,12 @@ $app->router->add(
         $app->response->sendJson($data);
     }
 );
+
+$app->router->add(
+    "textfilter",
+    function () use ($app) {
+
+        $app->renderPage("Test av textfilter", "take1/textfilter");
+
+    }
+);

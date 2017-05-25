@@ -44,3 +44,8 @@ v4.0.2 (2017-05-24)
 -------------------------
 
 I composer.json lade jag till autoload: files: ['src: functions.php'] vilket gör det lätt att använda hjälpfunktioner, vilka jag kan samla i den filen.
+
+v4.0.3 (2017-05-25)
+-------------------------
+
+Jag införlivade med composer anax/textfilter, så att jag kan använda mig av textfiltrena nl2br, bbcode, clickable och markdown. Lade också till en route 'textfilter', där filtrena testas.

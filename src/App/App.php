@@ -9,16 +9,15 @@ class App
 {
 
     public function renderPage($title, $page, $data = null)
-        {
-            $this->view->add("take1/header", ["title" => $title]);
-            $this->view->add("navbar1/navbar1");
-            $this->view->add("take1/navbar");
-            $this->view->add($page, ["user" => $data]);
+    {
+        $this->view->add("take1/header", ["title" => $title]);
+        $this->view->add("navbar1/navbar1");
+        $this->view->add("take1/navbar");
+        $this->view->add($page, ["user" => $data]);
 
-            $this->view->add("take1/footer");
+        $this->view->add("take1/footer");
 
-            $this->response->setBody([$this->view, "render"])
-                          ->send();
-        }
-
+        $this->response->setBody([$this->view, "render"])
+                      ->send();
+    }
 }

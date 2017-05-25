@@ -24,10 +24,10 @@ $app->navbar = new \Mag\Navbar\Navbar();
 $app->navbar->setApp($app);
 $app->navbar->configure("navbar.php");
 
-// Connect to database
-// $dataBaseFileName = __DIR__ . "/../sql/oophp.sqlite";
-// var_dump($dataBaseFileName);
-// $app->database = new \Mag\Database\Database("sqlite:$dataBaseFileName");
+// Create new instance of class Textfiler, and inject in $app
+$app->textfilter = new \Anax\Textfilter\Textfilter();
+
+// var_dump($app->textfilter->getFilters());
 
 $app->db = new \Anax\Database\DatabaseConfigure();
 // $app->db = new \Mag\Database\Database();
