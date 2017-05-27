@@ -125,6 +125,11 @@ område igen så kan man förhoppningsvis förbättra sin kodstruktur successivt
 <p><em>Skapa en klass för textfiltrering och formatering.</em></p>
 <p>Jag valde att använda anax/textfilter, och skapade också en route textfilter där jag testar de fyra filtrena:
 nl2br, clickable, bbcode och markdown. Jag injicerade klassen Textfilter i $app, i frontcontrollern.</p>
+<p>När jag testade på studentservern funkade inte anax/textfilter. </p>
+
+<p>För att få ut korrekt teckenuppsättning från innehållet i databasen behöver jag sätta 'charset=utf8' i strängen jag sänder i min config/database.php.</p>
+<p>Jag använder modulen anax/database, och behövde lägga till en metod: executeFetchOne, för att få ut en
+enda rad i resultatet från SQL-frågan, när man sänder ett ID, som i edit och add. </p>
 <h2 id="kmom05">Kmom05</h2>
 <h2 id="kmom06">Kmom06</h2>
 <h2 id="kmom10">Kmom07-10</h2>

@@ -7,4 +7,4 @@
 <!-- <link rel="stylesheet" href="css/style.css"> -->
 <link rel="stylesheet" href="<?=$app->style?>">
 <script src="https://use.fontawesome.com/8f9dd9d007.js"></script>
-<body>
+<body class="content_pages">

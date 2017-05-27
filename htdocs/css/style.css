@@ -220,7 +220,9 @@ em {
     box-sizing: border-box;
     line-height:100px;
     text-align:center;
-    width: 585px;
+    /*width: 585px;*/
+	width: 100%;
+	max-width: 900px;
     background-color: #11091e;
     margin-top:5px;
     border:5px solid #eee5e6;
@@ -400,4 +402,51 @@ td.gravatar_column {
 
 strong {
 	font-weight: 700;
+}
+
+/*-----------------tables-------------*/
+
+.pages th,
+.show-all th {
+	font-weight: 700;
+	background-color: #5f30f2;
+	background-color: rgba(95, 48, 242, 0.25);
+	padding: 4px;
+}
+.pages td,
+.show-all td {
+	padding: 4px;
+}
+
+/*-----------------.edit-content-------------*/
+
+.edit-content input[type=text],
+.edit-content input[type=datetime],
+.edit-content textarea {
+    width: 400px;
+}
+
+.edit-content textarea {
+    height: 200px;
+}
+
+.edit-content label {
+    font-size: small;
+}
+
+.edit-contentinput,
+.edit-content textarea,
+.edit-content legend {
+    font-size: large;
+}
+
+/*-----------------.content_pages-------------*/
+
+.content_pages {
+	width: 80%;
+}
+
+.content_pages .container {
+	max-width: 900px;
+	width: 100%;
 }

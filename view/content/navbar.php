@@ -1,6 +1,6 @@
 <?php
 
-require_once 'navbar1-array.php';
+require_once 'navbar-array.php';
 
 // print_r($navbar);
 // print_r($navbar['config']);

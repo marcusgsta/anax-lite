@@ -31,5 +31,22 @@ $navbar = [
             "text" => "Admin",
             "route" => "admin",
         ],
+
+        "content" => [
+            "text" => "Innehåll",
+            "route" => "content",
+        ]
+    ]
+];
+
+$navbar_sub = [
+    "config" => [
+        "navbar-class" => "navbar_sub"
+    ],
+    "items" => [
+        "Innehåll" => [
+            "text" => "",
+            "route" => "",
+        ],
     ]
 ];

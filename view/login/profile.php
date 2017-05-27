@@ -4,6 +4,8 @@ if (!$app->session->has("user_name")) {
     header('Location: login');
 }
 
+$user = $app->session->get("user_name");
+
 //Handle incoming POST variables
 $grav_link = isset($_POST["grav_link"]) ? htmlentities($_POST["grav_link"]) : null;
 if ($grav_link != null) {
