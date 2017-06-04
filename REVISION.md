@@ -49,3 +49,8 @@ v4.0.3 (2017-05-25)
 -------------------------
 
 Jag införlivade med composer anax/textfilter, så att jag kan använda mig av textfiltrena nl2br, bbcode, clickable och markdown. Lade också till en route 'textfilter', där filtrena testas.
+
+v4.0.4 (2017-05-27)
+-------------------------
+
+Added CRUD for content, blog and block pages.

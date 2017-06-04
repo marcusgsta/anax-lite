@@ -416,6 +416,7 @@ strong {
 .pages td,
 .show-all td {
 	padding: 4px;
+	vertical-align: middle;
 }
 
 /*-----------------.edit-content-------------*/

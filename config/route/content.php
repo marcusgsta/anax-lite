@@ -7,8 +7,9 @@ $app->router->add(
 
         if (!$app->session->get('user_name')) {
             $message = "<div class='container'><p>Du måste logga in för att kunna se sidan.</p>";
-            echo $message;
+
             header("refresh:5;url=login");
+            echo $message;
             echo '<p>You\'ll be redirected in about 5 secs. If not, click <a href="login">here</a>.</p>';
             exit;
         }
@@ -17,8 +18,9 @@ $app->router->add(
 
         if (!$app->admin->userIsAdmin($user_name)) {
             $admin_message = "<div class='container'><p>Bara administratörer har tillgång till sidan.</p>";
-            echo $admin_message;
+
             header("refresh:5;url=../login");
+            echo $admin_message;
             echo '<p>You\'ll be redirected in about 5 secs. If not, click <a href="login">here</a>.</p>';
             exit;
         }

@@ -122,14 +122,61 @@ nästa gång – exempelvis så kunde det möjligen vara en bra idé att hantera
 När man väl har tagit sig igenom känns det ju strålande, och jag lär mig mycket genom att programmera. När man ger sig in i samma
 område igen så kan man förhoppningsvis förbättra sin kodstruktur successivt.</p>
 <h2 id="kmom04">Kmom04</h2>
-<p><em>Skapa en klass för textfiltrering och formatering.</em></p>
+<p><em>Finns något att säga kring din klass för texfilter, eller rent allmänt
+om formattering och filtrering av text som sparas i databasen av användaren?</em></p>
 <p>Jag valde att använda anax/textfilter, och skapade också en route textfilter där jag testar de fyra filtrena:
-nl2br, clickable, bbcode och markdown. Jag injicerade klassen Textfilter i $app, i frontcontrollern.</p>
+nl2br, clickable, bbcode och markdown. Jag injicerade klassen Textfilter i $app, i frontcontrollern.
+Jag använder också en hjälpfunktion esc(), och skyddar därför mot sql-injections när jag skriver ut
+inmatad text på en webbsida. Först esc(), sedan anropas klassen Textfilter. De olika filtrena används i den ordningen
+som de sänds till metoden doFilter().
+</p>
 <p>När jag testade på studentservern funkade inte anax/textfilter. </p>
+<p><em>Berätta hur du tänkte när du strukturerade
+    klasserna och databasen för webbsidor och bloggposter?</em></p>
+    <p>Jag jobbade enligt artikeln, men anpassade enligt min kod, där jag använder en modul för routes.
+    Jag har inte skapat klasser för innehåll och bloggposter, för den här uppgiften, eftersom det var valfritt.
+Nu ligger koden både i routsen och i vyerna. Behöver komma vidare i kursmomenten.
+Så kan man ju också diskutera var koden borde ligga. Jag har en ganska bra förståelse nu för ramverket och hittar mycket
+snabbare fram till det jag söker när jag felsöker eller vill ändra på något. Jag kan förstå idén att reducera
+mängden kod i vyerna särskilt. Samtidigt, nu när man flyttar bak koden, både till hjälpfunktioner och klasser,
+så är det lätt att det blir lite splittrat, kan jag känna. Det får vara en balans, och om man har en egen logisk
+struktur för det får man vara nöjd. Jag har också flyttat kod från routern, till klassen App och
+renderPage, samt renderContentPage, två metoder som laddar de delar som behövs för den visade vyn.</p>
 
-<p>För att få ut korrekt teckenuppsättning från innehållet i databasen behöver jag sätta 'charset=utf8' i strängen jag sänder i min config/database.php.</p>
 <p>Jag använder modulen anax/database, och behövde lägga till en metod: executeFetchOne, för att få ut en
-enda rad i resultatet från SQL-frågan, när man sänder ett ID, som i edit och add. </p>
+enda rad i resultatet från SQL-frågan, när man sänder ett ID, som i edit och add. Metoden saknades
+i min version, men fanns på github upptäckte jag senare. Roligt i alla fall att kunna gå in och ändra
+i en modul och få det att fungera.</p>
+
+<p><em>Förklara vilka routes som används för att demonstrera
+funktionaliteten för webbsidor och blogg (så att en utomstående kan testa).</em></p>
+<p>Man kan skapa nya sidor, bloggposter och block, ifrån menyvalet 'Skapa'.
+Dessa sidor kan man visa i 'Visa sidor' (content/pages), 'Blogg' (content/blog),
+ och 'Blocks' (content/blocks).</p>
+
+<p>Block är tänkt att kunna kopplas med en Page. Jag försökte lite grann, men har inte införlivat
+     denna funktionalitet, enligt vad jag kan läsa så var det inte ett krav,
+     utan jag ser det som ett senare steg.</p>
+
+<p><em>Hur känns det att dokumentera databasen så här i efterhand?</em></p>
+
+<p>Det gick snabbt och känns praktiskt. Jag använde MySQL Workbench och körde en
+reverse engineer för att få ut tabellerna från databasen oophp. Det är bara två tabeller,
+'content' och 'users', och inga relationer, så nyttan med det blir ju tydligare med en
+större databas. Jag testade också kommandot mysqldump och kunde spara de SQL-kommandon
+som behövs för att återskapa databasen, i en fil. Väldigt bra att kunna detta. </p>
+
+<p><em>Om du är självkritisk till koden du skriver i Anax Lite, ser du
+    förbättringspotential och möjligheter till alternativ struktur av din kod?</em></p>
+    <p>Jag har själv ganska bra översikt över min kod nu i ramverket, och börjar tänka
+    lite mer på alternativa sätt att strukturera koden. Klasser känns naturligtvis vettigt. Jag har
+också använt flera externa moduler, går in och läser i de för att förstå hur de fungerar. Moduler
+känns som ett bra sätt att jobba för att snabbt komma igång med ett projekt, utan att uppfinna hjulet
+på nytt. På detaljnivå kan jag nog också förbättra mycket och snygga till. </p>
+
+<p>Noterat: För att få ut korrekt teckenuppsättning från innehållet i databasen behövde jag
+     sätta 'charset=utf8' i strängen jag sänder i min config/database.php.</p>
+
 <h2 id="kmom05">Kmom05</h2>
 <h2 id="kmom06">Kmom06</h2>
 <h2 id="kmom10">Kmom07-10</h2>

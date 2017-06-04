@@ -23,3 +23,4 @@ require __DIR__ . "/route/calendar.php";
 require __DIR__ . "/route/access.php";
 require __DIR__ . "/route/admin.php";
 require __DIR__ . "/route/content.php";
+require __DIR__ . "/route/webshop.php";

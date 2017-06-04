@@ -54,7 +54,7 @@ if (hasKeyPost("doSave")) {
     //     echo "fel";
     // };
     if (!$params['contentPath']) {
-        $params['contentsPath'] = null;
+        $params['contentPath'] = null;
     }
 
     $sql = "UPDATE content SET title=?, path=?, slug=?, data=?, type=?, filter=?, published=? WHERE id = ?;";

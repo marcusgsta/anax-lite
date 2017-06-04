@@ -35,6 +35,11 @@ $navbar = [
         "content" => [
             "text" => "Innehåll",
             "route" => "content",
+        ],
+
+        "webshop" => [
+            "text" => "Webshop",
+            "route" => "webshop",
         ]
     ]
 ];
