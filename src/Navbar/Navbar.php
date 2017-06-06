@@ -1,7 +1,15 @@
 <?php
-
+/**
+*   Navbar class
+*
+*/
 namespace Mag\Navbar;
 
+/**
+*   Navbar class
+*   creates html for navbar
+*
+*/
 class Navbar implements
     \Anax\Common\AppInjectableInterface,
     \Anax\Common\ConfigureInterface
@@ -9,6 +17,13 @@ class Navbar implements
     use \Anax\Common\AppInjectableTrait;
     use \Anax\Common\ConfigureTrait;
 
+    /**
+    *   get html for navbar
+    *   creates html for navbar
+    *   @var array $items array of navbar items
+    *   @var string $html html for navbar
+    *   @return string $html html for navbar
+    */
     public function getHtml()
     {
         $items = $this->config;

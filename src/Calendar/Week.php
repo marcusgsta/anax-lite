@@ -1,7 +1,14 @@
 <?php
-
+/**
+*   Week class
+*/
 namespace Mag\Calendar;
 
+/**
+*   Week class
+*   @var string $html   html output
+*   @var string $headings html for headings
+*/
 class Week
 {
     public $html = "";
@@ -30,6 +37,10 @@ class Week
         return $this->html;
     }
 
+    /**
+    * Create headings
+    * @return string $html  html code for headings
+    */
     public function createHeadings()
     {
         $this->headings = "<div class='headings'><div>Mon</div><div>Tue</div>

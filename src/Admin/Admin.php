@@ -1,7 +1,12 @@
 <?php
 
 namespace Mag\Admin;
-
+/**
+ * Class for handling administration pages
+ * @param $db string The name of the database
+ * @param $app string The app object
+ * @return void
+ */
 class Admin
 {
     // private $db;
@@ -11,7 +16,7 @@ class Admin
 
     /**
      * Constructor
-     * @param $dsn string The dsn to the database-file
+     * @param $app string the app object
      * @return void
      */
     public function __construct($app)
@@ -30,16 +35,32 @@ class Admin
 
     }
 
+    /**
+     * Sets app
+     *
+     * @return void
+     */
     public function setApp($app)
     {
         $this->app = $app;
     }
 
+    /**
+     * Sets database
+     * @param $database string The name of the database
+     * @return void
+     */
     public function setDatabase($database)
     {
         $this->db = $database;
     }
 
+    /**
+     * Deletes an account
+     * @param $id string The id of the user
+     * @var $message string     Success message
+     * @return $message string
+     */
     public function deleteAccount($id)
     {
         try {
@@ -52,6 +73,12 @@ class Admin
         return $message;
     }
 
+    /**
+     * Check if user is admin
+     *
+     * @param $userName string A username
+     * @return bool
+     */
     public function userIsAdmin($userName)
     {
         $this->db->execute("SELECT role FROM users WHERE name='$userName'");
@@ -80,6 +107,15 @@ class Admin
 EOD;
     }
 
+    /**
+     * Adds user to the database
+     * @param string $name The name of the user
+     * @param string $pass The user's password
+     * @param  string $rePass The user's password
+     * @param  string $role The user's role
+     * @param  string $gravatar The user's gravatar link
+     * @return void
+     */
     public function addUser($name, $pass, $rePass, $role, $gravatar)
     {
         // Check if username exists
@@ -104,6 +140,17 @@ EOD;
         }
     }
 
+    /**
+     * Edit user account
+     *
+     * @param string $id The user's id
+     * @param string $name The user's name
+     * @param string $pass The user's password
+     * @param string $role  The user's role
+     * @param string $gravatar  The user's gravatar link
+     *
+     * @return void
+     */
     public function editUser($id, $name, $pass, $role, $gravatar)
     {
         if ($name != "") {
@@ -125,7 +172,12 @@ EOD;
 
     }
 
-
+    /**
+     * Search for user
+     * @param string $user  A username
+     * @var array $res      The resultset
+     * @return $res
+     */
     public function search($user)
     {
         $this->db->execute("SELECT * FROM users WHERE name LIKE '%$user%'");
@@ -133,6 +185,13 @@ EOD;
         return $res;
     }
 
+    /**
+     * Show all user accounts
+     * @param string $orderby  Which column to order by, default: 'name'
+     * @param string $order  ASC or DESC, default: 'ASC'
+     * @var array $res      The resultset
+     * @return $res
+     */
     public function showAccounts($orderby = 'name', $order = 'ASC')
     {
         $this->db->execute("SELECT id, name, gravatar, role FROM users ORDER BY $orderby $order");

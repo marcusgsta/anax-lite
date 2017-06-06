@@ -1,7 +1,14 @@
 <?php
-
+/**
+*   the Month class
+*/
 namespace Mag\Calendar;
 
+/**
+*   Month class
+*   @var string $html html output
+*   @var array $nrOfDays private  number of days in a certain month
+*/
 class Month
 {
     public $html = "";
@@ -27,6 +34,11 @@ class Month
     }
 
 
+    /**
+    *   get nr of days
+    *   @var string $days   nr of days in month
+    *   @return string nr of days 
+    */
     public function getNrOfDays()
     {
         for ($i = 1; $i < 13; $i ++) {

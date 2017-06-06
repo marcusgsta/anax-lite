@@ -1,15 +1,19 @@
 <?php
-
 namespace Mag\Access;
+/**
+ * Class for handling access and login
+ *
+ */
 
 class Access
 {
-    // private $db;
-    public $hello = "hello";
+    /**
+     * @var PDO          $db     the database object
+     */
     public $db;
     /**
      * Constructor
-     * @param $dsn string The dsn to the database-file
+     * @param $database string The dsn to the database-file
      * @return void
      */
     public function __construct($database)
@@ -27,7 +31,11 @@ class Access
 
     }
 
-
+    /**
+     * Set database
+     * @param $database string The name of the database
+     * @return void
+     */
     public function setDatabase($database)
     {
         $this->db = $database;

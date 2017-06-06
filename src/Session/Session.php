@@ -1,12 +1,23 @@
 <?php
-
+/**
+*   class for session handling
+*/
 namespace Mag\Session;
 
+/**
+*   class for session handling
+*   @var string private $name   a username
+*/
 class Session
 {
+    /**
+    *   The username in session
+    *   @var string $name a username
+    */
     private $name;
 
     /**
+    * The constructor
     * @param string $name (optional) The name of the session
     * @return void
     */

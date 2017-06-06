@@ -1,7 +1,13 @@
 <?php
-
+/**
+*   the Cookie class
+*/
 namespace Mag\Cookie;
 
+/**
+* the Cookie class
+* @var string private @expire days til cookie expires
+*/
 class Cookie
 {
     private $expire;

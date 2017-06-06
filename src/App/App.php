@@ -1,5 +1,7 @@
 <?php
-
+/**
+*   Class App for various functions
+*/
 namespace Mag\App;
 
 /**
@@ -8,6 +10,13 @@ namespace Mag\App;
 class App
 {
 
+    /**
+    *   render a normal page
+    * @param string $title title of page
+    * @param string $page route to page
+    * @param string $data data, default = null
+    * @return void
+    */
     public function renderPage($title, $page, $data = null)
     {
         $this->view->add("take1/header", ["title" => $title]);
@@ -22,6 +31,13 @@ class App
                       ->send();
     }
 
+    /**
+    *   render a content / blog page
+    * @param string $title title of page
+    * @param string $page route to page
+    * @param string $data data, default = null
+    * @return void
+    */
     public function renderContentPage($title, $page, $data = null)
     {
         $this->view->add("content/header", ["title" => $title]);
@@ -35,6 +51,13 @@ class App
                       ->send();
     }
 
+    /**
+    *   render a webshop page
+    * @param string $title title of page
+    * @param string $page route to page
+    * @param string $data data, default = null
+    * @return void
+    */
     public function renderWebShopPage($title, $page, $data = null)
     {
         $this->view->add("content/header", ["title" => $title]);
