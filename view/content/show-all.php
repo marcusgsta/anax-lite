@@ -30,12 +30,12 @@ $resultset = $data;
     $id++;
 ?>
     <tr>
-        <td><?= $id ?></td>
-        <td><?= $row->id ?></td>
-        <td><?= $row->title ?></td>
-        <td><?= $row->type ?></td>
-        <td><?= $row->slug ?></td>
-        <td><?= $row->path ?></td>
+        <td><?= esc($id); ?></td>
+        <td><?= esc($row->id); ?></td>
+        <td><?= esc($row->title); ?></td>
+        <td><?= esc($row->type); ?></td>
+        <td><?= esc($row->slug); ?></td>
+        <td><?= esc($row->path); ?></td>
         <td><?= $row->published ?></td>
         <td><?= $row->created ?></td>
         <td><?= $row->updated ?></td>

@@ -4,7 +4,8 @@
 --
 -- CREATE DATABASE oophp;
 -- GRANT ALL ON oophp.* TO user@localhost IDENTIFIED BY "pass";
-USE oophp;
+-- USE magi16 (change to this database on the student server)
+
 SET NAMES utf8;
 
 
@@ -13,6 +14,8 @@ SET NAMES utf8;
 --
 -- Setup tables
 --
+DROP TABLE IF EXISTS `CartRow`;
+DROP TABLE IF EXISTS `Cart`;
 DROP TABLE IF EXISTS `Prod2Cat`;
 DROP TABLE IF EXISTS `ProdCategory`;
 DROP TABLE IF EXISTS `Inventory`;
@@ -95,6 +98,29 @@ CREATE TABLE `Customer` (
 	PRIMARY KEY (`id`)
 );
 
+-- ------------------------------------------------------------------------
+--
+-- Cart
+--
+
+CREATE TABLE `Cart` (
+	`id` INT AUTO_INCREMENT,
+	`customer` INT,
+
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`customer`) REFERENCES `Customer` (`id`)
+);
+
+CREATE TABLE `CartRow` (
+	`id` INT AUTO_INCREMENT,
+    `cart` INT,
+    `product` INT,
+	`items` INT,
+
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`cart`) REFERENCES `Cart` (`id`),
+	FOREIGN KEY (`product`) REFERENCES `Product` (`id`)
+);
 
 
 -- ------------------------------------------------------------------------
@@ -104,10 +130,17 @@ CREATE TABLE `Customer` (
 CREATE TABLE `Order` (
 	`id` INT AUTO_INCREMENT,
     `customer` INT,
-	`created` DATETIME DEFAULT CURRENT_TIMESTAMP,
-	`updated` DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-	`deleted` DATETIME DEFAULT NULL,
-	`delivery` DATETIME DEFAULT NULL,
+
+      -- MySQL version 5.6 and higher
+  -- `published` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  -- `created` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  -- `updated` DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+
+  -- MySQL version 5.5 and lower
+  `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated` DATETIME DEFAULT NULL, --  ON UPDATE CURRENT_TIMESTAMP,
+  `deleted` DATETIME DEFAULT NULL,
+  `delivery` DATETIME DEFAULT NULL,
 
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`customer`) REFERENCES `Customer` (`id`)
@@ -134,7 +167,7 @@ CREATE TABLE `Invoice` (
 	`id` INT AUTO_INCREMENT,
     `order` INT,
     `customer` INT,
-	`created` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`order`) REFERENCES `Order` (`id`),
@@ -153,8 +186,56 @@ CREATE TABLE `InvoiceRow` (
 );
 
 
+--
+-- Inventory Log table
+--
+DROP TABLE IF EXISTS InventoryLog;
+CREATE TABLE InventoryLog
+(
+    `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+    `what` VARCHAR(20),
+    `when` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `prod_id` INT,
+	`old_amount` NUMERIC,
+    `new_amount` NUMERIC
+);
 
+--
+-- Trigger for logging updating inventory
+--
+DROP TRIGGER IF EXISTS LogInventoryUpdate;
+DELIMITER //
 
+CREATE TRIGGER LogInventoryUpdate
+AFTER UPDATE
+ON Inventory
+	FOR EACH ROW
+BEGIN
+	IF NEW.items < 5 THEN
+		INSERT INTO InventoryLog (`what`, `prod_id`, `old_amount`, `new_amount`)
+        VALUES ("trigger", NEW.prod_id, OLD.items, NEW.items);
+END IF;
+	END
+//
+DELIMITER ;
+
+-- ------------------------------------------------------------------------
+-- View VinventoryLog
+
+DROP VIEW IF EXISTS VInventoryLog;
+CREATE VIEW VInventoryLog AS
+SELECT
+ Product.description,
+ InventoryLog.prod_id,
+ InventoryLog.when,
+ InventoryLog.old_amount,
+ InventoryLog.new_amount
+ FROM InventoryLog
+	INNER JOIN Product
+		ON InventoryLog.prod_id = Product.id
+;
+
+SELECT * FROM VInventoryLog;
 -- ------------------------------------------------------------------------
 --
 -- Buy some stuff to get it up and running,
@@ -251,7 +332,7 @@ SELECT * FROM VInventory;
 SELECT description, items, shelf, description FROM VInventory;
 
 
---- Create a view for products
+-- Create a view for products
 
 -- DROP VIEW IF EXISTS VProducts;
 -- CREATE VIEW VProducts AS
@@ -280,22 +361,286 @@ INSERT INTO `Customer` (`firstName`, `lastName`) VALUES
 
 
 
--- ------------------------------------------------------------------------
+INSERT INTO `Cart` (`customer`) VALUES
+(1), (2)
+;
+
+INSERT INTO `CartRow` (`cart`, `product`, `items`) VALUES
+(1, 3, 2),
+(1, 4, 2),
+(2, 1, 1),
+(2, 2, 1),
+(2, 3, 1),
+(2, 4, 96)
+;
+
+
+-- ------------------------------------------------------------------------------
+-- PROCEDURE createCart
+
+
+DROP PROCEDURE IF EXISTS createCart;
+
+DELIMITER //
+
+CREATE PROCEDURE createCart(
+	thisCustomer CHAR
+)
+BEGIN
+START TRANSACTION;
+INSERT INTO Cart
+SET
+customer = thisCustomer;
+COMMIT;
+
+END
+//
+DELIMITER ;
+-- USAGE:
+-- CALL createCart(customerId);
+-- Example:
+-- CALL createCart(2);
 --
--- Your first customer order, hurray!
+-- ------------------------------------------------------------------------------
+-- PROCEDURE addToCart
+
+
+DROP PROCEDURE IF EXISTS addToCart;
+
+DELIMITER //
+
+CREATE PROCEDURE addToCart(
+	cartId INT,
+	thisProductId NUMERIC,
+	amount NUMERIC
+)
+BEGIN
+START TRANSACTION;
+
+INSERT INTO CartRow
+SET
+cart = cartId,
+product = thisProductId,
+items = amount;
+COMMIT;
+
+END
+//
+DELIMITER ;
+-- USAGE:
+-- CALL addToCart(cartId, productId, amound)
+-- Example:
+-- CALL addToCart(1, 2, 300);
+
+-- ------------------------------------------------------------------------------
+-- PROCEDURE removeFromCart
+-- Remove product from cart
+DROP PROCEDURE IF EXISTS removeFromCart;
+
+DELIMITER //
+
+CREATE PROCEDURE removeFromCart(
+	cartId NUMERIC,
+    productId NUMERIC
+)
+BEGIN
+START TRANSACTION;
+
+DELETE FROM CartRow
+WHERE product = productId AND cart = cartId;
+COMMIT;
+
+END
+//
+DELIMITER ;
+-- USAGE:
+-- CALL removeFromCart(cartId, productId)
+-- Example:
+-- CALL removeFromCart(4, 2);
 --
--- INSERT INTO `Order` (`customer`) VALUES
--- (1), (2)
--- ;
+
+-- ------------------------------------------------------------------------------
+-- PROCEDURE makeOrder
+-- Make an order from a cart
+DROP PROCEDURE IF EXISTS makeOrder;
+
+DELIMITER //
+
+CREATE PROCEDURE makeOrder(
+	cartId INT
+)
+BEGIN
+DECLARE amount INT;
+DECLARE i INT DEFAULT 0;
+DECLARE n INT DEFAULT 0;
+DECLARE productId INT;
+DECLARE orderNr INT;
+DECLARE currentAmount NUMERIC;
+
+START TRANSACTION;
+
+INSERT INTO `Order` (customer)
+SELECT customer FROM Cart
+WHERE id = cartId;
+SET orderNr = LAST_INSERT_ID();
+
+SELECT COUNT(*) FROM CartRow WHERE cart = cartId INTO n;
+SET i = 0;
+aLoop: WHILE i < n DO
+	SELECT items FROM CartRow WHERE cart = cartId LIMIT i,1
+    INTO amount;
+	SELECT product FROM CartRow WHERE cart = cartId LIMIT i,1
+    INTO productId;
+
+INSERT INTO OrderRow
+(`order`, `product`, `items`)
+SELECT
+	orderNr, `product`, `items`
+FROM CartRow
+	WHERE cart = cartId
+		LIMIT i,1;
+
+SET currentAmount =
+(SELECT items FROM Inventory
+WHERE prod_id = productId);
+	IF currentAmount - amount < 0 THEN
+		ROLLBACK;
+		SELECT "Amount in the inventory is not enough for purchase";
+        LEAVE aLoop;
+	ELSE
+
+	UPDATE Inventory
+SET
+	items = items - amount
+WHERE
+	prod_id = productId
+;
+SET i = i + 1;
+END IF;
+END WHILE;
+
+COMMIT;
+
+END
+//
+DELIMITER ;
+-- USAGE:
+-- CALL makeOrder(cartId)
+-- Example:
+CALL makeOrder(2);
 --
--- INSERT INTO `OrderRow` (`order`, `product`, `items`) VALUES
--- (1, 3, 2),
--- (1, 4, 2),
--- (2, 1, 1),
--- (2, 2, 1),
--- (2, 3, 1),
--- (2, 4, 1)
--- ;
+
+-- ------------------------------------------------------------------------------
+-- PROCEDURE showOrder
+-- Show order rows from cart with a certain ID
+DROP PROCEDURE IF EXISTS showOrder;
+
+DELIMITER //
+
+CREATE PROCEDURE showOrder(
+	orderId NUMERIC
+)
+BEGIN
+START TRANSACTION;
+
+SELECT
+*
+FROM OrderRow AS R
+INNER JOIN `Order` AS O
+	ON O.id = R.order
+WHERE O.id = orderId
+;
+
+COMMIT;
+
+END
+//
+DELIMITER ;
+-- USAGE:
+-- CALL showOrder(orderId)
+-- Example:
+-- CALL showOrder(3);
+--
+
+-- PROCEDURE removeOrder
+-- Assigns order with certain orderId to DELETED
+DROP PROCEDURE IF EXISTS removeOrder;
+
+DELIMITER //
+
+CREATE PROCEDURE removeOrder(
+	orderId NUMERIC
+)
+BEGIN
+START TRANSACTION;
+
+UPDATE
+`Order`
+SET
+deleted = NOW()
+WHERE
+id = orderId;
+COMMIT;
+
+END
+//
+DELIMITER ;
+-- USAGE:
+-- CALL removeOrder(orderId)
+-- Example:
+-- CALL removeOrder(3);
+--
+-- ------------------------------------------------------------------------------
+-- PROCEDURE showCart
+-- Show cart rows from cart with a certain ID
+DROP PROCEDURE IF EXISTS showCart;
+
+DELIMITER //
+
+CREATE PROCEDURE showCart(
+	cartId NUMERIC
+)
+BEGIN
+START TRANSACTION;
+
+SELECT
+*
+FROM CartRow AS R
+INNER JOIN Cart AS C
+	ON C.id = R.cart
+WHERE C.id = cartId;
+
+COMMIT;
+
+END
+//
+DELIMITER ;
+-- USAGE:
+-- CALL showCart(cartId)
+-- Example:
+-- CALL showCart(2);
+--
+
+-- FUNCTION TO CALCULATE "MOMS" ON PRODUCT PRICE
+
+DELIMITER //
+
+DROP FUNCTION IF EXISTS Moms //
+CREATE FUNCTION Moms(
+	price NUMERIC
+)
+RETURNS NUMERIC
+BEGIN
+	RETURN price * 0.20;
+END
+//
+
+DELIMITER ;
+
+-- USAGE:
+SELECT price,
+Moms(price) AS 'Moms 20%'
+FROM Product;
 
 --
 -- Order information

@@ -8,7 +8,7 @@
 
 if (hasKeyPost("doCreate")) {
     $categoryName = getPost("categoryName");
-
+    $categoryName = esc($categoryName);
     $sql = "INSERT INTO ProdCategory (category) VALUES (?);";
     $app->db->execute($sql, [$categoryName]);
 

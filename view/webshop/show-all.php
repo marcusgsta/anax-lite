@@ -31,13 +31,13 @@ $result = $data;
     $id++;
 ?>
     <tr>
-        <td><?= $id ?></td>
-        <td><?= $row->id ?></td>
-        <td><?= $row->description ?></td>
-        <td><img src="image/webshop/<?= $row->image?>?w=150" class="productImage" title="Image of <?= $row->description ?>"</td>
-        <td><?= $row->category ?></td>
-        <td><?= $row->price ?></td>
-        <td><?= $row->items ?></td>
+        <td><?= esc($id); ?></td>
+        <td><?= esc($row->id); ?></td>
+        <td><?= esc($row->description); ?></td>
+        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->description)?>"</td>
+        <td><?= esc($row->category); ?></td>
+        <td><?= esc($row->price); ?></td>
+        <td><?= esc($row->items); ?></td>
         <td><a href="webshop/edit?id=<?=$row->id?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a href="webshop/delete?id=<?=$row->id?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
     </tr>
 

@@ -54,3 +54,8 @@ v4.0.4 (2017-05-27)
 -------------------------
 
 Added CRUD for content, blog and block pages.
+
+v5.0.1 (2017-06-04)
+-------------------------
+
+Added CRUD for webbshop backend.

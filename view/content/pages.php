@@ -23,9 +23,9 @@ if (!$resultset) {
     $id++;
 ?>
     <tr>
-        <td><?= $row->id ?></td>
-        <td><a href="?route=<?= $row->path ?>"><?= $row->title ?></a></td>
-        <td><?= $row->type ?></td>
+        <td><?= esc($row->id); ?></td>
+        <td><a href="?route=<?=esc($row->path)?>"><?=esc($row->title)?></a></td>
+        <td><?= esc($row->type); ?></td>
         <td><?= $row->status ?></td>
         <td><?= $row->published ?></td>
         <td><?= $row->deleted ?></td>

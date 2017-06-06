@@ -178,5 +178,34 @@ på nytt. På detaljnivå kan jag nog också förbättra mycket och snygga till.
      sätta 'charset=utf8' i strängen jag sänder i min config/database.php.</p>
 
 <h2 id="kmom05">Kmom05</h2>
+<p><em>Gick det bra att komma igång med det vi kallar programmering av databas,
+    med transaktioner, lagrade procedurer, triggers, funktioner?</em></p>
+    <p>Jag tog det steg för steg och läste igenom i lugn och ro. Det kändes inte så svårt när jag väl förstått konceptet.
+    Jag kände inte till något av de fyra och en ny värld öppnade sig. Roligt att nu veta lite mer om lagrade procedurer, funktioner osv.
+direkt i databasen, och att kunna använda det. Jag fick pussla och gå tillbaka en del, jämföra med annan kod. Läste också i manualen om compound statements,
+vilket klargjorde ytterligare. Jag skrev dokumentation för det API som jag skapat. Känns bra att ha bockat av även det här området. </p>
+
+<p>Jag skapade framför allt lagrade procedurer för att sköta varukorg och orderbeställning. Jag lade till en funktion för att beräkna momssatsen för varor i databasen.</p>
+<p><em>Hur är din syn på att programmera på detta viset i databasen?</em></p>
+<p>Jag tror på att det är en bra väg att gå. Så länge det finns en utvecklare som kan gå in i databasen och korrigera om det
+skulle behövas, antar jag. Med funktioner och lagrade procedurer kan det underlätta och göra det möjligt att skriva enklare SQL-satser i PHP-koden. Triggers i databasen
+känns också som något rimligt att ha, särskilt i en webbshop där man uppdaterar ett lager. Jag kan se många användningsområden där man kan lägga in
+triggers som avfyras vid vissa tillfällen när tabelluppdateringar inträffar. Man bygger upp en infrastruktur som säger ifrån när något är för lite eller för mycket.
+Ett varningssystem, kanske man kan kalla det. </p>
+
+<p><em>Några reflektioner kring din kod för backenden till webbshopen?</em></p>
+<p>Jag har börjat använda mig av vyer lite mer, och för förstasidan skapade jag en vy där produkterna kopplas till
+lagret så att man i samma tabell kan se hur många produkter som ligger inne. Jag kopplade också till kategorier i samma vy.
+I övrigt så kämpade jag lite med att fixa till så att man kan välja flera kategorier med hjälp av checkboxar. För att lösa det såg jag till
+att radera de gamla kategorierna för varje ny redigering. Jag lade också till en sida för att skapa nya kategorier, vilka dynamiskt laddas på sidan för att skapa/redigera nya produkter. </p>
+<p>Det var egentligen inte så mycket nytt, men för varje gång jag gör en CRUD så snappar jag upp något nytt, och lär mig något på det.</p>
+
+<p><em>Något du vill säga om koden generellt i och kring Anax Lite?</em></p>
+<p>Jag har inte tagit mig tid att jobba med nya klasser, men kanske det går an att göra i projektet senare. Naturligtvis skulle det också vara en bra idé att gå igenom och strukturera upp koden bättre.
+Men jag tar det steg för steg, och är nöjd att ha kommit så här långt. Känner mig ganska hemma i Anax Lite-strukturen nu.</p>
+
+<p>Noterat: På studentservern måste man skriva tabellerna exakt som de är,
+exempelvis om de börjar med stor bokstav. Detta behövs inte på min lokala server. Något jag fann ut av efter en del debugging.</p>
+
 <h2 id="kmom06">Kmom06</h2>
 <h2 id="kmom10">Kmom07-10</h2>

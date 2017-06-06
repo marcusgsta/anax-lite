@@ -21,6 +21,5 @@ $navbar = [
             "text" => "Kategorier",
             "route" => "webshop/categories",
         ]
-
     ]
 ];

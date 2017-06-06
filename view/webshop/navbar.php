@@ -9,7 +9,6 @@ $navbarClass = $navbar['config']['navbar-class'];
 
 $html = "<navbar class='$navbarClass'><ul>";
 foreach ($values as $key => $value) {
-
     $route = $value['route'];
     $text = $value['text'];
     $url = $app->url->create($route);

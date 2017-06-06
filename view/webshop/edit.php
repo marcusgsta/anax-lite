@@ -1,15 +1,28 @@
 <?php
 $product = $data;
 
+$productId = getGet("id");
+// $productId = getPost("productId") ?: getGet("id");
+if (!is_numeric($productId)) {
+    die("Not valid for product id.");
+}
+
 // Get categories
 
 $sql = "SELECT * FROM ProdCategory ORDER BY category";
 $categories = $app->db->executeFetchAll($sql);
 
-$productId = getPost("productId") ?: getGet("id");
-if (!is_numeric($productId)) {
-    die("Not valid for product id.");
+// Build array of category ids
+
+
+$sql = "SELECT cat_id FROM Prod2Cat WHERE prod_id=$productId";
+
+$cat_ids = $app->db->executeFetchAll($sql);
+$cat_array = [];
+foreach ($cat_ids as $cat_id) {
+    array_push($cat_array, $cat_id->cat_id);
 }
+
 
 // if (hasKeyPost("doDelete")) {
 //     header("Location: delete?id=$productId");
@@ -28,18 +41,16 @@ if (hasKeyPost("productAmount")) {
         "productAmount",
         "productId"
     ]);
+
+    // check to see that amount is a number
+    $amount = $params["productAmount"];
+    if (!is_numeric($amount)) {
+        die("Not valid for product amount.");
+    }
+
     $sql = "UPDATE Inventory SET items=? WHERE prod_id=?";
     // $sql = "INSERT INTO Inventory (prod_id, items) VALUES (?, ?)";
     $app->db->execute($sql, array_values($params));
-}
-
-// Build array of category ids
-
-$sql = "SELECT cat_id FROM prod2Cat WHERE prod_id=$productId";
-$cat_ids = $app->db->executeFetchAll($sql);
-$cat_array = [];
-foreach ($cat_ids as $cat_id) {
-    array_push($cat_array, $cat_id->cat_id);
 }
 
 
@@ -52,6 +63,12 @@ if (hasKeyPost("doSave")) {
     "productId"
     ]);
 
+    // check to see that amount is a number
+    $price = $params["productPrice"];
+    if (!is_numeric($price)) {
+        die("Not valid for product price.");
+    }
+
     $productId = $params['productId'];
 
     $sql = "UPDATE Product SET description=?, image=?, price=? WHERE id = ?;";
@@ -61,13 +78,11 @@ if (hasKeyPost("doSave")) {
 
     // Insert a new connection in table Prod2Cat
     if (hasKeyPost("catId")) {
-
         // Delete old connections in table Prod2Cat
         $sql = "DELETE FROM Prod2Cat WHERE prod_id=$productId";
         $app->db->execute($sql);
 
         foreach (getPost('catId') as $catId) {
-
             $sql = "INSERT INTO Prod2Cat (prod_id, cat_id) VALUES ($productId, $catId)";
             $app->db->execute($sql);
         }
@@ -76,7 +91,7 @@ if (hasKeyPost("doSave")) {
     header("Location: edit?id=$product->id");
     exit;
 }
-    ?>
+?>
 
 <div class="container edit-content">
 <h1>Redigera produkt</h1>
@@ -100,8 +115,9 @@ if (hasKeyPost("doSave")) {
     <p>
         <label>Kategori:<br>
             <?php foreach ($categories as $category) :?>
-            <input type="checkbox" name="catId[]" value="<?=$category->id;?>" <?=in_array($category->id, $cat_array) ? 'checked' : ''?>><?=$category->category;?>
-            <?php endforeach; ?>
+            <input type="checkbox" name="catId[]" value="<?=$category->id;?>" <?=in_array($category->id, $cat_array) ? 'checked' : ''?>>
+<?=esc($category->category);
+endforeach;?>
     </p>
 
 

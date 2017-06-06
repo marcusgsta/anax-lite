@@ -10,15 +10,15 @@
     $database = $dsnDetail[2];
     $login = $databaseConfig["login"];
     $password = $databaseConfig["password"];
-    if (isset($_POST["reset"]) || isset($_GET["reset"])) {
-        $command = "$mysql -h{$host} -u{$login} -p{$password} $database < $file 2>&1";
-        $output = [];
-        $status = null;
-        $res = exec($command, $output, $status);
-        $output = "<p>The command was: <code>$command</code>.<br>The command exit status was $status."
-            . "<br>The output from the command was:</p><pre>"
-            . print_r($output, 1);
-    }
+if (isset($_POST["reset"]) || isset($_GET["reset"])) {
+    $command = "$mysql -h{$host} -u{$login} -p{$password} $database < $file 2>&1";
+    $output = [];
+    $status = null;
+    $res = exec($command, $output, $status);
+    $output = "<p>The command was: <code>$command</code>.<br>The command exit status was $status."
+        . "<br>The output from the command was:</p><pre>"
+        . print_r($output, 1);
+}
     ?>
     <div class="container">
         <p>För att återställa databastabellen 'content' till sitt
