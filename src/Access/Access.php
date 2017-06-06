@@ -1,5 +1,6 @@
 <?php
 namespace Mag\Access;
+
 /**
  * Class for handling access and login
  *

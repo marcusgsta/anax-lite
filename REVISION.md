@@ -60,7 +60,13 @@ v5.0.0 (2017-06-04)
 
 Added CRUD for webbshop backend.
 
-v5.0.1 (2017-06-04)
+v5.0.1 (2017-06-06)
 -------------------------
 
-Created SQL procedures for handling webshop: Shopping cart and order. Improved security by escaping input/output. 
+Created SQL procedures for handling webshop: Shopping cart and order. Improved security by escaping input/output.
+
+
+v5.0.2 (2017-06-06)
+-------------------------
+
+Updated docblocks in calsses and generated documentation with phpdoc.

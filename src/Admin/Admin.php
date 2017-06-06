@@ -1,6 +1,7 @@
 <?php
 
 namespace Mag\Admin;
+
 /**
  * Class for handling administration pages
  * @param $db string The name of the database
