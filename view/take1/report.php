@@ -208,4 +208,23 @@ Men jag tar det steg för steg, och är nöjd att ha kommit så här långt. Kä
 exempelvis om de börjar med stor bokstav. Detta behövs inte på min lokala server. Något jag fann ut av efter en del debugging.</p>
 
 <h2 id="kmom06">Kmom06</h2>
+<p>Jag skapade index för kolumnen 'title' i tabellen Inventory, som är mitt lager i webbshopen.
+     För en SELECT-sats med LIKE där man har vänstra delsträngen, t.ex. "Nu%", förbättras resulatet –
+ från en 'full table scan' till att söka igenom 3 rader. Jag valde detta eftersom en sökning på ord i titel kan
+vara en bra grej att införliva i mitt CMS. </p>
+ <p>Jag skapade också ett index på kolumnen 'items', vilket gjorde att en sökning efter items < 5 gick ifrån
+ en full table scan till att söka igenom 1 rad, den enda raden där sökkriteriet uppfylldes.
+Att söka igenom lagret för att leta efter antal enheter kan också vara bra när man vill ha en snabb
+översikt över hur mycket man har, och om det behöver beställas mer av något. </p>
+<p>Jag gjorde likadant med tabellen Product, och skapade index för kolumnen description. Detta är en bra kolumn att söka
+i efter namnet på en produkt och snarlika namn. För söktermer där man vet vänstra/första delen av strängen så gick
+resultatet från en full table scan till 2 rader, för strängen "Egg%", vilket är bra. Bara de aktuella raderna behöver sökas igenom.</p>
+ <p>När jag körde EXPLAIN på mina tabeller fick jag ut i de nya index jag skapat.
+För Product(description) och Inventory(items) och Inventory(title) visade EXPLAIN
+ att indexet var MUL. MUL / multiple betyder att indexet inte är unikt (UNI) eller primary (PRI),
+och det kan förekomma flera förekomster av samma värde. </p>
+ <p>EXPLAIN SELECT * FROM Product WHERE description LIKE "Egg%"; gav att sökningen var SIMPLE, eftersom bara en tabell genomsöktes.
+ Type blev 'range', för att jag sökte en delsträng, antar jag.</p>
+ <p>Jag körde 'SHOW CREATE TABLE Inventory' och Jag körde 'SHOW CREATE TABLE Product',
+ för att hämta SQL-querys som kan återskapa tabellerna, nu med de nya indexen.</p>
 <h2 id="kmom10">Kmom07-10</h2>

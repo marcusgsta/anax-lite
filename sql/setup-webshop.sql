@@ -40,14 +40,24 @@ CREATE TABLE `ProdCategory` (
 	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `Product` (
-	`id` INT AUTO_INCREMENT,
-    `description` VARCHAR(20),
-	`price`INT,
-	`image`VARCHAR(20),
+-- CREATE TABLE `Product` (
+-- 	`id` INT AUTO_INCREMENT,
+--     `description` VARCHAR(20),
+-- 	`price`INT,
+-- 	`image`VARCHAR(20),
+-- 
+-- 	PRIMARY KEY (`id`)
+-- );
 
-	PRIMARY KEY (`id`)
-);
+CREATE TABLE `Product` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `description` varchar(20) DEFAULT NULL,
+	  `price` int(11) DEFAULT NULL,
+	  `image` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_description` (`description`)
+) 
+ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Prod2Cat` (
 	`id` INT AUTO_INCREMENT,
@@ -72,17 +82,29 @@ CREATE TABLE `InvenShelf` (
 	PRIMARY KEY (`shelf`)
 );
 
+-- CREATE TABLE `Inventory` (
+-- 	`id` INT AUTO_INCREMENT,
+--     `prod_id` INT,
+--     `shelf_id` CHAR(6),
+--     `items` INT,
+-- 
+-- 	PRIMARY KEY (`id`),
+-- 	FOREIGN KEY (`prod_id`) REFERENCES `Product` (`id`),
+-- 	FOREIGN KEY (`shelf_id`) REFERENCES `InvenShelf` (`shelf`)
+-- );
+
 CREATE TABLE `Inventory` (
-	`id` INT AUTO_INCREMENT,
-    `prod_id` INT,
-    `shelf_id` CHAR(6),
-    `items` INT,
-
-	PRIMARY KEY (`id`),
-	FOREIGN KEY (`prod_id`) REFERENCES `Product` (`id`),
-	FOREIGN KEY (`shelf_id`) REFERENCES `InvenShelf` (`shelf`)
-);
-
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prod_id` int(11) DEFAULT NULL,
+  `shelf_id` char(6) DEFAULT NULL,
+  `items` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `prod_id` (`prod_id`),
+  KEY `shelf_id` (`shelf_id`),
+  KEY `index_items` (`items`),
+  CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`prod_id`) REFERENCES `Product` (`id`),
+  CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`shelf_id`) REFERENCES `InvenShelf` (`shelf`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 
 
@@ -642,116 +664,44 @@ SELECT price,
 Moms(price) AS 'Moms 20%'
 FROM Product;
 
---
--- Order information
---
--- SELECT
--- 	O.id AS OrderNumber,
---     C.id AS CustomerNumber,
---     O.created AS OrderDate,
---     O.delivery AS DeliveryDate,
---     C.firstName,
---     C.lastName
--- FROM `Order` AS O
--- 	INNER JOIN Customer AS C
--- 		ON O.customer = C.id
--- ;
+-- INDEXES
 
---
--- Order details
---
--- DROP VIEW IF EXISTS VOrderDetails;
--- CREATE VIEW VOrderDetails AS
--- SELECT
---     O.id AS OrderNumber,
---     R.id AS OrderRow,
---     P.description AS Description,
---     R.items AS Items
--- FROM `Order` AS O
--- 	INNER JOIN OrderRow AS R
--- 		ON O.id = R.order
--- 	INNER JOIN Product AS P
--- 		ON R.product = P.id
--- ORDER BY OrderRow
--- ;
---
--- SELECT * FROM VOrderDetails;
-
---
--- Order Plocklist
---
--- DROP VIEW IF EXISTS VPlockList;
--- CREATE VIEW VPlockList AS
--- SELECT
---     O.id AS OrderNumber,
---     R.id AS OrderRow,
---     P.description AS Description,
---     R.items AS Items,
---     S.shelf AS Shelf,
---     S.description AS ShelfLocation,
---     I.items AS ItemsAvailable
--- FROM `Order` AS O
--- 	INNER JOIN OrderRow AS R
--- 		ON O.id = R.order
--- 	INNER JOIN Product AS P
--- 		ON R.product = P.id
--- 	INNER JOIN Inventory AS I
--- 		ON P.id = I.prod_id
--- 	INNER JOIN InvenShelf AS S
--- 		ON I.shelf_id = S.shelf
--- ORDER BY OrderRow
--- ;
---
--- SELECT * FROM VPlockList;
-
-
-
--- ------------------------------------------------------------------------
---
--- Lets create the invoice using the order information
---
--- INSERT INTO `Invoice` (`order`, `customer`)
--- SELECT `id`, `customer` FROM `Order`
--- ;
---
--- INSERT INTO `InvoiceRow` (`invoice`, `product`, `items`)
--- SELECT
--- 	I.id AS InvoiceNumber,
---     R.product AS ProductId,
---     R.items AS Items
--- FROM Invoice AS I
--- 	INNER JOIN OrderRow AS R
--- 		ON I.order = R.order
--- ;
-
---
--- Invoice header
---
--- SELECT
--- 	I.id AS InvoiceNumber,
---     I.order AS OrderNumber,
---     I.customer AS CustomerNumber,
---     I.created AS InvoiceDate,
---     O.created AS OrderDate,
---     C.firstName AS FirstName,
---     C.lastName AS LastName
--- FROM Invoice AS I
--- 	INNER JOIN Customer AS C
--- 		ON I.customer = C.id
--- 	INNER JOIN `Order` AS O
--- 		ON I.order = O.id
--- ;
-
---
--- Details for invoice
---
--- SELECT
--- 	R.invoice AS InvoiceNumber,
---     R.id AS InvoiceRow,
---     P.description AS Description,
---     R.items AS Items
--- FROM InvoiceRow AS R
--- 	INNER JOIN Product AS P
--- 		ON R.product = P.id
--- ORDER BY InvoiceNumber, InvoiceRow
--- ;
+-- Denna kan jag använda. Från full table scan med 9 rader, till 
+-- att scanna 3 rader. type:range.
+-- jag lade till ett index (icke unikt) på title-kolumnen.
+-- SELECT * FROM content WHERE title LIKE "Nu%";
+-- EXPLAIN SELECT * FROM content WHERE title LIKE "Nu%";
+-- 
+-- CREATE INDEX index_title ON content (title);
+-- 
+-- EXPLAIN content;
+-- -- ett index på en varchar-kolumn kan vara en bra ide
+-- -- men bara på delsträngar där man vet vänstra/första delen på strängen.
+-- 
+-- -- index för numeriska värden
+-- 
+-- EXPLAIN Inventory;
+-- 
+-- SELECT * FROM Inventory WHERE items < 50;
+-- EXPLAIN SELECT * FROM Inventory WHERE items < 50;
+-- 
+-- SELECT * FROM Inventory;
+-- 
+-- CREATE INDEX index_items ON Inventory(items);
+-- -- detta var också effektivt. Om jag vill hämta alla rader där det finns färre än ex. 50 enheter
+-- -- från lagret Inventory, så kan jag lägga till ett index på kolumnen items.
+-- -- Resultatet blev att gå från full table scan till att bara hämta en rad, vilket också är 
+-- -- resultatet.
+-- 
+-- SHOW INDEX FROM Inventory;
+-- 
+-- SHOW CREATE TABLE Inventory;
+-- SHOW CREATE TABLE Product;
+-- 
+-- EXPLAIN Product;
+-- SELECT * FROM Product;
+-- SELECT * FROM Product WHERE description LIKE "%gg%";
+-- EXPLAIN SELECT * FROM Product WHERE description LIKE "%gg%";
+-- EXPLAIN SELECT * FROM Product WHERE description LIKE "Egg%";
+-- CREATE INDEX index_description ON Product(description);
+-- 
