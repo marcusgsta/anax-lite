@@ -24,7 +24,6 @@ $app->router->add(
             echo '<p>You\'ll be redirected in about 5 secs. If not, click <a href="login">here</a>.</p>';
             exit;
         }
-
     }
 );
 
@@ -37,8 +36,6 @@ $app->router->add(
         $resultset = $app->db->executeFetchAll($sql);
 
         $app->renderContentPage("Visa allt innehåll", "content/show-all", $resultset);
-
-
     }
 );
 
@@ -49,8 +46,6 @@ $app->router->add(
         $sql = "SELECT * FROM content;";
         $resultset = $app->db->executeFetchAll($sql);
         $app->renderContentPage("Visa allt innehåll", "content/show-all", $resultset);
-
-
     }
 );
 

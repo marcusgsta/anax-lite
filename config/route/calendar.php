@@ -17,6 +17,5 @@ $app->router->add(
         $app->calendar->month = $app->calendar->nrOfDays[$currentMonth];
 
         $app->renderPage("Calendar 2017", "calendar/calendar");
-
     }
 );

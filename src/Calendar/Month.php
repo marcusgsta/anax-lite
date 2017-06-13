@@ -37,7 +37,7 @@ class Month
     /**
     *   get nr of days
     *   @var string $days   nr of days in month
-    *   @return string nr of days 
+    *   @return string nr of days
     */
     public function getNrOfDays()
     {

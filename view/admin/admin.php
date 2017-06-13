@@ -115,7 +115,7 @@ if ($search != "") {
     <select class="" name="edit">
         <?php foreach ($user_accounts as $account) : ?>
         <option value="<?=$account->id?>"><?=$account->name?></option>
-    <?php endforeach;?>
+        <?php endforeach;?>
     </select>
 
 

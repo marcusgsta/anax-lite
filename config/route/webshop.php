@@ -24,7 +24,6 @@ $app->router->add(
             echo '<p>You\'ll be redirected in about 5 secs. If not, click <a href="login">here</a>.</p>';
             exit;
         }
-
     }
 );
 

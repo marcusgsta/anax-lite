@@ -25,7 +25,6 @@ $app->router->add(
             echo '<p>You\'ll be redirected in about 5 secs. If not, click <a href="login">here</a>.</p>';
             exit;
         }
-
     }
 );
 
@@ -34,7 +33,6 @@ $app->router->add(
     function () use ($app) {
 
         $app->renderPage("Admin", "admin/admin");
-
     }
 );
 
@@ -43,6 +41,5 @@ $app->router->add(
     function () use ($app) {
 
         $app->renderPage("Admin", "admin/edit");
-
     }
 );

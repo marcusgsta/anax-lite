@@ -20,8 +20,6 @@ class Access
     public function __construct($database)
     {
 
-        $this->setDatabase($database);
-
         // try {
         //     $db = new PDO($dsn);
         //     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -29,7 +27,7 @@ class Access
         // } catch (PDOException $e) {
         //     echo "Failed to connect to the database using DSN:<br>$dsn<br>";
         // }
-
+        $this->setDatabase($database);
     }
 
     /**
@@ -80,7 +78,6 @@ class Access
     public function changePassword($user, $pass)
     {
         $this->db->execute("UPDATE users SET pass='$pass' WHERE name='$user'");
-
     }
 
     /**

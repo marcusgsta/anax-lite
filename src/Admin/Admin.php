@@ -25,15 +25,6 @@ class Admin
 
         $this->setDatabase($app->db);
         $this->setApp($app);
-
-        // try {
-        //     $db = new PDO($dsn);
-        //     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        //     $this->db = $db;
-        // } catch (PDOException $e) {
-        //     echo "Failed to connect to the database using DSN:<br>$dsn<br>";
-        // }
-
     }
 
     /**
@@ -170,7 +161,6 @@ EOD;
         if ($gravatar != "") {
             $this->db->execute("UPDATE users SET gravatar='$gravatar' WHERE id='$id'");
         }
-
     }
 
     /**

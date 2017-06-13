@@ -69,7 +69,6 @@ class Cookie
     public function dump()
     {
         echo "<p>Allt innehåll i arrayen \$_COOKIE:<br><pre>" . htmlentities(print_r($_COOKIE, 1)) . "</pre>";
-
     }
 
     /**

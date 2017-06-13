@@ -4,7 +4,6 @@ $app->router->add(
     function () use ($app) {
 
         $app->renderPage("Home", "take1/home");
-
     }
 );
 
@@ -12,7 +11,6 @@ $app->router->add(
     "about",
     function () use ($app) {
         $app->renderPage("About", "take1/about");
-
     }
 );
 
@@ -21,7 +19,6 @@ $app->router->add(
     function () use ($app) {
 
         $app->renderPage("Report", "take1/report");
-
     }
 );
 
@@ -46,6 +43,5 @@ $app->router->add(
     function () use ($app) {
 
         $app->renderPage("Test av textfilter", "take1/textfilter");
-
     }
 );

@@ -208,6 +208,7 @@ Men jag tar det steg för steg, och är nöjd att ha kommit så här långt. Kä
 exempelvis om de börjar med stor bokstav. Detta behövs inte på min lokala server. Något jag fann ut av efter en del debugging.</p>
 
 <h2 id="kmom06">Kmom06</h2>
+<p><em>Berätta om hur du jobbade i uppgiften om index och vilka du valde att lägga till och skillnaden före/efter.</em></p>
 <p>Jag skapade index för kolumnen 'title' i tabellen Inventory, som är mitt lager i webbshopen.
      För en SELECT-sats med LIKE där man har vänstra delsträngen, t.ex. "Nu%", förbättras resulatet –
  från en 'full table scan' till att söka igenom 3 rader. Jag valde detta eftersom en sökning på ord i titel kan
@@ -219,12 +220,31 @@ Att söka igenom lagret för att leta efter antal enheter kan också vara bra n�
 <p>Jag gjorde likadant med tabellen Product, och skapade index för kolumnen description. Detta är en bra kolumn att söka
 i efter namnet på en produkt och snarlika namn. För söktermer där man vet vänstra/första delen av strängen så gick
 resultatet från en full table scan till 2 rader, för strängen "Egg%", vilket är bra. Bara de aktuella raderna behöver sökas igenom.</p>
- <p>När jag körde EXPLAIN på mina tabeller fick jag ut i de nya index jag skapat.
-För Product(description) och Inventory(items) och Inventory(title) visade EXPLAIN
+ <p>När jag körde EXPLAIN på mina tabeller fick jag ut de nya index jag skapat.
+För Product(description), Inventory(items) och Inventory(title) visade EXPLAIN
  att indexet var MUL. MUL / multiple betyder att indexet inte är unikt (UNI) eller primary (PRI),
-och det kan förekomma flera förekomster av samma värde. </p>
+och det får finnas flera förekomster av samma värde. </p>
  <p>EXPLAIN SELECT * FROM Product WHERE description LIKE "Egg%"; gav att sökningen var SIMPLE, eftersom bara en tabell genomsöktes.
  Type blev 'range', för att jag sökte en delsträng, antar jag.</p>
- <p>Jag körde 'SHOW CREATE TABLE Inventory' och Jag körde 'SHOW CREATE TABLE Product',
+ <p>Jag körde 'SHOW CREATE TABLE Inventory' och 'SHOW CREATE TABLE Product',
  för att hämta SQL-querys som kan återskapa tabellerna, nu med de nya indexen.</p>
+ <p><em>Var du bekant med begreppet index i databaser sedan tidigare?</em></p>
+ <p>Nej, inte alls. Verkar vara användbart för större databaser. Jag tycker detta kursmoment
+ har gett bättre insikt i databaser och lagringsstrukturer, och optimering av databas.</p>
+
+<p><em>Har du tidigare erfarenheter av att skriva kod som testar annan kod?</em></p>
+<p>Ja, i kursen oopython som vi gick tidigare i vår.</p>
+
+<p><em>Hur ser du på begreppet enhetstestning och att skriva testbar kod?</em></p>
+<p>Jag tar till mig detta och försöker införliva med tiden. När man får vana för det, och gör det samtidigt som man
+utvecklar så blir det nog ett bra verktyg. Känns professionellt. Lite omständigt, men nödvändigt antar jag, och särskilt
+för större applikationer och samarbetsprojekt där man successivt vill införliva tester att allt fungerar som det ska. </p>
+
+<p><em>Hur gick det att hitta testbar kod bland dina klasser i Anax Lite?</em></p>
+<p>Jag skapade ett antal testfall, ett i klassen Cookie och fem i klassen Calendar. I Cookie-klassen fick jag lite problem,
+och jag gick istället vidare med Calendar-klassen som var lättare testbar. Inte så svårt när man kommer igång, åtminstone inte när
+man har metoder som gör enkla saker, som hämtar information från php:s date-funktion.
+Jag fick inte så hög code coverage i Calendar-klassen, men det beror på att den innehåller många metoder.
+Skönt att bli klar, nu dags för projekten.</p>
+
 <h2 id="kmom10">Kmom07-10</h2>
