@@ -6,7 +6,7 @@
 #
 RewriteEngine on
 
-# Igore real files (images, stylesheets etc.)
+# Ignore real files (images, stylesheets etc.)
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule (.*) - [NC,L]

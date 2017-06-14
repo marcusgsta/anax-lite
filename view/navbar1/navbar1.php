@@ -2,7 +2,6 @@
 
 require_once 'navbar1-array.php';
 
-// print_r($navbar);
 // print_r($navbar['config']);
 // print_r($navbar['items']);
 $page = basename($_SERVER['REQUEST_URI']);
@@ -22,6 +21,7 @@ foreach ($values as $key => $value) {
     if ($value['route'] == "") {
         $value['route'] = "htdocs";
     }
+
     if ($page == $value['route']) {
         $html .= "selected";
     } else {

@@ -2,10 +2,14 @@
 
 require_once 'navbar-array.php';
 
-// print_r($navbar);
 // print_r($navbar['config']);
 // print_r($navbar['items']);
-$page = basename($_SERVER['REQUEST_URI']);
+if (basename($_SERVER['REQUEST_URI']) == 'content') {
+    $page = basename($_SERVER['REQUEST_URI']);
+} else {
+    $page = "content/" . basename($_SERVER['REQUEST_URI']);
+}
+
 
 $values = $navbar['items'];
 $navbarClass = $navbar['config']['navbar-class'];
@@ -22,6 +26,10 @@ foreach ($values as $key => $value) {
     if ($value['route'] == "") {
         $value['route'] = "htdocs";
     }
+
+    // echo "page: " . $page . "<br>";
+    // echo "route: " . $value['route'] . "<br>";;
+
     if ($page == $value['route']) {
         $html .= "selected";
     } else {

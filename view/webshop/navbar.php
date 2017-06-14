@@ -2,7 +2,12 @@
 
 require_once 'navbar-array.php';
 
-$page = basename($_SERVER['REQUEST_URI']);
+if (basename($_SERVER['REQUEST_URI']) == 'webshop') {
+    $page = basename($_SERVER['REQUEST_URI']);
+} else {
+    $page = "webshop/" . basename($_SERVER['REQUEST_URI']);
+}
+
 
 $values = $navbar['items'];
 $navbarClass = $navbar['config']['navbar-class'];

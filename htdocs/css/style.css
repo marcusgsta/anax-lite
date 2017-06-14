@@ -60,6 +60,7 @@ html {
 body {
     margin: 40px auto 0 auto;
     width:800px;
+	min-width:335px;
     height:600px;
     font-size:1.3em;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -95,6 +96,8 @@ body::-webkit-scrollbar,
     height:auto;
 }
 
+/*-----------------navbar1-----------------*/
+
 navbar.navbar1 {
     position:absolute;
     top: 0;
@@ -102,6 +105,7 @@ navbar.navbar1 {
     list-style-type: none;
     /*width: 300px;*/
     /*height: 100px;*/
+	min-width:335px;
     margin: 0 0 0 0;
 }
 
@@ -118,6 +122,9 @@ navbar.navbar1 {
 .navbar1 li.selected a{
     color: indianred;
 }
+
+/* NAVBAR0 */
+/*----------------------------------*/
 
 navbar.navbar0 {
     position:relative;
@@ -213,6 +220,8 @@ em {
 	font-family: cursive;
 }
 
+/*----------------- footer -------------------*/
+
 .footer {
 	clear:both;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -222,7 +231,6 @@ em {
     text-align:center;
     /*width: 585px;*/
 	width: 100%;
-	max-width: 900px;
     background-color: #11091e;
     margin-top:5px;
     border:5px solid #eee5e6;
@@ -444,10 +452,47 @@ strong {
 /*-----------------.content_pages-------------*/
 
 .content_pages {
-	width: 80%;
+	width: 100%;
+
 }
 
 .content_pages .container {
-	max-width: 900px;
+	/*max-width: 900px;*/
 	width: 100%;
+}
+
+/*----------------- MEDIA QUERIES -------------*/
+
+@media screen and (max-width: 805px) {
+	.navbar0 {
+		display: none;
+		}
+	.container {
+		width: 100%;
+	}
+	body {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.bth_logo.right,
+	.portratt.right {
+		display: block;
+		float: none;
+		margin: 0 auto;
+	}
+}
+
+@media screen and (max-width: 635px) {
+	body.default {
+	/*body {*/
+		margin-top: 80px;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	body.content_pages {
+		margin-top: 80px;
+	}
 }

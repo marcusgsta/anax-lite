@@ -247,4 +247,8 @@ man har metoder som gör enkla saker, som hämtar information från php:s date-f
 Jag fick inte så hög code coverage i Calendar-klassen, men det beror på att den innehåller många metoder.
 Skönt att bli klar, nu dags för projekten.</p>
 
+<p>Jag gick över mitt anax-lite och putsade lite. Förbättrade responsivitet,
+    och fixade en bugg så att även webshoppens och content-sidornas
+navigation fungerade med aktiv länk i en annan färg.</p>
+
 <h2 id="kmom10">Kmom07-10</h2>
